@@ -1,0 +1,50 @@
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Model;
+
+use App\Traits\HasTranslations;
+
+class Service extends Model
+{
+    use HasTranslations;
+
+    public function getTranslatableFields(): array
+    {
+        return ['title', 'description', 'content', 'meta_title', 'meta_description'];
+    }
+
+    protected $fillable = [
+        'title',
+        'slug', 
+        'description',
+        'content',
+        'icon',
+        'image',
+        'order',
+        'active',
+        'meta_title',
+        'meta_description',
+    ];
+
+    protected $casts = [
+        'title' => 'array',
+        'description' => 'array',
+        'content' => 'array',
+        'meta_title' => 'array',
+        'meta_description' => 'array',
+        'active' => 'boolean',
+        'order' => 'integer',
+    ];
+
+    // Services correspondant à ton PDF
+    const CATEGORIES = [
+        'education' => 'Educación y formación',
+        'intercultural' => 'Interculturalidad y convivencia',
+        'culture' => 'Cultura y patrimonio',
+        'participation' => 'Participación social y asociacionismo',
+        'equality' => 'Igualdad y Derechos Humanos',
+        'cooperation' => 'Cooperación al Desarrollo',
+    ];
+}

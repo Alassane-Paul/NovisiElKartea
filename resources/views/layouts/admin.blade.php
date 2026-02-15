@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Admin - Novisi Elkartea</title>
+    
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
+</head>
+<body class="bg-gray-100 font-sans antialiased">
+    <div class="flex h-screen overflow-hidden">
+        <!-- Sidebar -->
+        <aside class="w-64 bg-teal-900 text-white flex flex-col">
+            <div class="h-16 flex items-center justify-center border-b border-teal-800">
+                <span class="text-xl font-bold tracking-wide">Novisi Admin</span>
+            </div>
+            
+            <nav class="flex-1 overflow-y-auto py-4">
+                <ul class="space-y-1">
+                    <li>
+                        <a href="{{ route('admin.dashboard') }}" class="flex items-center px-6 py-3 hover:bg-teal-800 {{ request()->routeIs('admin.dashboard') ? 'bg-teal-800 border-l-4 border-orange-500' : '' }}">
+                            <i class="fas fa-tachometer-alt w-6"></i>
+                            <span>Dashboard</span>
+                        </a>
+                    </li>
+                    
+                    <li class="px-6 py-2 text-xs font-semibold text-teal-200 uppercase tracking-wider mt-4">Contenu</li>
+                    
+                    <li>
+                        <a href="{{ route('admin.projects.index') }}" class="flex items-center px-6 py-3 hover:bg-teal-800 {{ request()->routeIs('admin.projects.*') ? 'bg-teal-800 border-l-4 border-orange-500' : '' }}">
+                            <i class="fas fa-project-diagram w-6"></i>
+                            <span>Projets</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ route('admin.services.index') }}" class="flex items-center px-6 py-3 hover:bg-teal-800 {{ request()->routeIs('admin.services.*') ? 'bg-teal-800 border-l-4 border-orange-500' : '' }}">
+                            <i class="fas fa-hands-helping w-6"></i>
+                            <span>Services</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ route('admin.team.index') }}" class="flex items-center px-6 py-3 hover:bg-teal-800 {{ request()->routeIs('admin.team.*') ? 'bg-teal-800 border-l-4 border-orange-500' : '' }}">
+                            <i class="fas fa-users w-6"></i>
+                            <span>Équipe</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ route('admin.partners.index') }}" class="flex items-center px-6 py-3 hover:bg-teal-800 {{ request()->routeIs('admin.partners.*') ? 'bg-teal-800 border-l-4 border-orange-500' : '' }}">
+                            <i class="fas fa-handshake w-6"></i>
+                            <span>Partenaires</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ route('admin.pages.index') }}" class="flex items-center px-6 py-3 hover:bg-teal-800 {{ request()->routeIs('admin.pages.*') ? 'bg-teal-800 border-l-4 border-orange-500' : '' }}">
+                            <i class="fas fa-file-alt w-6"></i>
+                            <span>Pages</span>
+                        </a>
+                    </li>
+                    
+                    <li class="px-6 py-2 text-xs font-semibold text-teal-200 uppercase tracking-wider mt-4">Configuration</li>
+                    
+                    <li>
+                        <a href="{{ route('admin.settings.index') }}" class="flex items-center px-6 py-3 hover:bg-teal-800 {{ request()->routeIs('admin.settings.*') ? 'bg-teal-800 border-l-4 border-orange-500' : '' }}">
+                            <i class="fas fa-cogs w-6"></i>
+                            <span>Paramètres</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ route('admin.translations.index') }}" class="flex items-center px-6 py-3 hover:bg-teal-800 {{ request()->routeIs('admin.translations.*') ? 'bg-teal-800 border-l-4 border-orange-500' : '' }}">
+                            <i class="fas fa-language w-6"></i>
+                            <span>Traductions</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+            
+            <div class="p-4 border-t border-teal-800">
+                <form method="POST" action="{{ route('admin.logout') }}">
+                    @csrf
+                    <button type="submit" class="flex items-center px-4 py-2 text-sm text-teal-200 hover:text-white w-full transition-colors">
+                        <i class="fas fa-sign-out-alt w-6"></i>
+                        <span>Déconnexion</span>
+                    </button>
+                </form>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <div class="flex-1 flex flex-col overflow-hidden">
+            <!-- Top Header -->
+            <header class="h-16 bg-white shadow-sm flex items-center justify-between px-6">
+                <h2 class="text-xl font-semibold text-gray-800">@yield('title', 'Dashboard')</h2>
+                <div class="flex items-center">
+                    <span class="text-gray-600 mr-2">{{ Auth::user()->name }}</span>
+                    <div class="h-8 w-8 rounded-full bg-blue-500 flex items-center justify-center text-white font-bold">
+                        {{ substr(Auth::user()->name, 0, 1) }}
+                    </div>
+                </div>
+            </header>
+
+            <!-- Page Content -->
+            <main class="flex-1 overflow-x-hidden overflow-y-auto bg-gray-100 p-6">
+                @if(session('success'))
+                    <div class="bg-green-100 border-l-4 border-green-500 text-green-700 p-4 mb-4" role="alert">
+                        <p>{{ session('success') }}</p>
+                    </div>
+                @endif
+
+                @yield('content')
+            </main>
+        </div>
+    </div>
+    @stack('scripts')
+</body>
+</html>
