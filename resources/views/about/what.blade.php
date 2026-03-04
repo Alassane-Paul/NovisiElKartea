@@ -5,15 +5,15 @@
 @section('content')
 <div class="overflow-hidden">
     {{-- Hero Section --}}
-    <section class="relative min-h-[60vh] flex items-center justify-center pt-20">
+    <section class="relative min-h-[60vh] flex items-center justify-center pt-12 md:pt-16">
         {{-- Background Image with Parallax-like Overlay --}}
         @if($page->featured_image)
-            <div class="absolute inset-0 z-0">
-                <img src="{{ asset('storage/' . $page->featured_image) }}" class="w-full h-full object-cover" alt="{{ $page->title[app()->getLocale()] ?? $page->title['es'] }}">
-                <div class="absolute inset-0 bg-gradient-to-r from-teal-900/90 to-teal-800/60 mix-blend-multiply"></div>
-            </div>
+        <div class="absolute inset-0 z-0">
+            <img src="{{ asset('storage/' . $page->featured_image) }}" class="w-full h-full object-cover" alt="{{ $page->title[app()->getLocale()] ?? $page->title['es'] }}">
+            <div class="absolute inset-0 bg-gradient-to-r from-teal-900/90 to-teal-800/60 mix-blend-multiply"></div>
+        </div>
         @else
-            <div class="absolute inset-0 bg-gradient-to-br from-teal-900 to-[#00695c] z-0"></div>
+        <div class="absolute inset-0 bg-gradient-to-br from-teal-900 to-[#00695c] z-0"></div>
         @endif
 
         {{-- Decorative SVG Elements --}}
@@ -30,7 +30,7 @@
                     <span class="mx-2">/</span>
                     <span>{{ __('header.about') }}</span>
                 </nav>
-                <h1 class="text-4xl md:text-6xl font-bold mb-6 leading-tight animate-fade-in-up">
+                <h1 class="text-4xl md:text-6xl font-bold mb-6 leading-tight animate-fade-in-up" data-aos="fade-down" data-aos-duration="1000">
                     {{ $page->title[app()->getLocale()] ?? $page->title['es'] }}
                 </h1>
                 <div class="w-20 h-1.5 bg-[#ff9800] rounded-full animate-width-grow"></div>
@@ -39,22 +39,22 @@
     </section>
 
     {{-- Content Section --}}
-    <section class="py-20 relative bg-white">
+    <section class="py-12 relative bg-white">
         {{-- Subtle Background Pattern --}}
         <div class="absolute top-0 right-0 w-64 h-64 opacity-5 pointer-events-none -translate-y-1/2 translate-x-1/4">
             <svg viewBox="0 0 100 100" class="w-full h-full text-teal-900 fill-current">
-                <circle cx="50" cy="50" r="40" fill="none" stroke="currentColor" stroke-width="2" stroke-dasharray="8 4"/>
+                <circle cx="50" cy="50" r="40" fill="none" stroke="currentColor" stroke-width="2" stroke-dasharray="8 4" />
             </svg>
         </div>
 
         <div class="container mx-auto px-4">
             <div class="max-w-4xl mx-auto">
-                <div class="prose prose-lg lg:prose-xl prose-teal max-w-none text-gray-700 leading-relaxed space-y-8 animate-fade-in">
+                <div class="prose prose-lg lg:prose-xl prose-teal max-w-none text-gray-700 leading-relaxed space-y-8 animate-fade-in" data-aos="fade-up">
                     {!! $page->content[app()->getLocale()] ?? $page->content['es'] !!}
                 </div>
 
                 {{-- Call to Action Card --}}
-                <div class="mt-20 bg-gray-50 rounded-3xl p-8 md:p-12 border border-gray-100 shadow-sm relative overflow-hidden group hover:shadow-md transition-shadow duration-300">
+                <div class="mt-12 bg-gray-50 rounded-3xl p-8 md:p-12 border border-gray-100 shadow-sm relative overflow-hidden group hover:shadow-md transition-shadow duration-300" data-aos="zoom-in-up" data-aos-duration="1000">
                     <div class="absolute top-0 right-0 w-32 h-32 bg-[#ff9800]/10 rounded-full -mr-16 -mt-16 group-hover:scale-110 transition-transform duration-500"></div>
                     <div class="relative z-10 flex flex-col md:flex-row items-center justify-between gap-8">
                         <div class="text-center md:text-left">
@@ -74,24 +74,63 @@
 
 <style>
     @keyframes fade-in-up {
-        from { opacity: 0; transform: translateY(20px); }
-        to { opacity: 1; transform: translateY(0); }
+        from {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
     }
+
     @keyframes fade-in-down {
-        from { opacity: 0; transform: translateY(-20px); }
-        to { opacity: 1; transform: translateY(0); }
+        from {
+            opacity: 0;
+            transform: translateY(-20px);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
     }
+
     @keyframes fade-in {
-        from { opacity: 0; }
-        to { opacity: 1; }
+        from {
+            opacity: 0;
+        }
+
+        to {
+            opacity: 1;
+        }
     }
+
     @keyframes width-grow {
-        from { width: 0; }
-        to { width: 5rem; }
+        from {
+            width: 0;
+        }
+
+        to {
+            width: 5rem;
+        }
     }
-    .animate-fade-in-up { animation: fade-in-up 0.8s ease-out forwards; }
-    .animate-fade-in-down { animation: fade-in-down 0.8s ease-out forwards; }
-    .animate-fade-in { animation: fade-in 1s ease-out forwards; }
-    .animate-width-grow { animation: width-grow 1s ease-out forwards; }
+
+    .animate-fade-in-up {
+        animation: fade-in-up 0.8s ease-out forwards;
+    }
+
+    .animate-fade-in-down {
+        animation: fade-in-down 0.8s ease-out forwards;
+    }
+
+    .animate-fade-in {
+        animation: fade-in 1s ease-out forwards;
+    }
+
+    .animate-width-grow {
+        animation: width-grow 1s ease-out forwards;
+    }
 </style>
 @endsection

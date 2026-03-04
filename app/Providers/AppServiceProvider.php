@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use Illuminate\Support\Facades\URL;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -20,8 +21,9 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         \Illuminate\Support\Facades\View::composer(
-            ['layouts.app', 'about.*', 'services.*', 'projects.*', 'contact', 'home'],
+            ['layouts.app', 'about.*', 'services.*', 'projects.*', 'contact.*', 'home'],
             \App\Http\View\Composers\SettingsComposer::class
         );
+        URL::forceScheme('https');
     }
 }

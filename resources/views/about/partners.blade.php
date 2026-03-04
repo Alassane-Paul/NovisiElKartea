@@ -8,12 +8,12 @@
     <section class="relative min-h-[60vh] flex items-center justify-center pt-20">
         {{-- Background Image with Black Gradient Overlay --}}
         @if(isset($page) && $page->featured_image)
-            <div class="absolute inset-0 z-0">
-                <img src="{{ asset('storage/' . $page->featured_image) }}" class="w-full h-full object-cover" alt="{{ __('about.partners_title') }}">
-                <div class="absolute inset-0 bg-gradient-to-r from-teal-900/90 to-teal-800/60 mix-blend-multiply"></div>
-            </div>
+        <div class="absolute inset-0 z-0">
+            <img src="{{ asset('storage/' . $page->featured_image) }}" class="w-full h-full object-cover" alt="{{ __('about.partners_title') }}">
+            <div class="absolute inset-0 bg-gradient-to-r from-teal-900/90 to-teal-800/60 mix-blend-multiply"></div>
+        </div>
         @else
-            <div class="absolute inset-0 bg-gradient-to-br from-teal-900 to-[#00695c] z-0"></div>
+        <div class="absolute inset-0 bg-gradient-to-br from-teal-900 to-[#00695c] z-0"></div>
         @endif
 
         {{-- Decorative SVG Elements --}}
@@ -30,7 +30,7 @@
                     <span class="mx-2">/</span>
                     <span>{{ __('header.about') }}</span>
                 </nav>
-                <h1 class="text-4xl md:text-6xl font-bold mb-6 leading-tight animate-fade-in-up">
+                <h1 class="text-4xl md:text-6xl font-bold mb-6 leading-tight animate-fade-in-up" data-aos="fade-down" data-aos-duration="1000">
                     {{ $page->title[app()->getLocale()] ?? $page->title['es'] ?? __('about.partners_title') }}
                 </h1>
                 <div class="w-20 h-1.5 bg-[#ff9800] rounded-full animate-width-grow"></div>
@@ -41,20 +41,21 @@
 
 <div class="container mx-auto px-4 py-12">
     @if($page && (isset($page->content[app()->getLocale()]) || isset($page->content['es'])))
-        <div class="prose prose-lg max-w-4xl mx-auto mb-20 text-center">
-            {!! $page->content[app()->getLocale()] ?? $page->content['es'] !!}
-        </div>
+    <div class="prose prose-lg max-w-4xl mx-auto mb-12 text-center" data-aos="fade-up">
+        {!! $page->content[app()->getLocale()] ?? $page->content['es'] !!}
+    </div>
     @endif
 
-    <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-8 items-center">
-        @foreach($partners as $partner)
-            <div class="bg-white p-6 rounded-lg premium-contour flex items-center justify-center duration-300">
-                @if($partner->logo)
-                    <img src="{{ asset('storage/' . $partner->logo) }}" class="max-h-24 object-contain" alt="{{ $partner->name[app()->getLocale()] ?? $partner->name['es'] }}">
-                @else
-                    <span class="text-gray-400 font-bold uppercase tracking-widest text-xs">{{ $partner->name[app()->getLocale()] ?? $partner->name['es'] }}</span>
-                @endif
-            </div>
+    <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-8 items-center overflow-hidden">
+        @foreach($partners as $index => $partner)
+        <div class="bg-white p-6 rounded-lg premium-contour flex items-center justify-center duration-300"
+            data-aos="zoom-in" data-aos-delay="{{ ($index % 6) * 50 }}">
+            @if($partner->logo)
+            <img src="{{ asset('storage/' . $partner->logo) }}" class="max-h-24 object-contain" alt="{{ $partner->name[app()->getLocale()] ?? $partner->name['es'] }}">
+            @else
+            <span class="text-gray-400 font-bold uppercase tracking-widest text-xs">{{ $partner->name[app()->getLocale()] ?? $partner->name['es'] }}</span>
+            @endif
+        </div>
         @endforeach
     </div>
 </div>
@@ -62,24 +63,63 @@
 
 <style>
     @keyframes fade-in-up {
-        from { opacity: 0; transform: translateY(20px); }
-        to { opacity: 1; transform: translateY(0); }
+        from {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
     }
+
     @keyframes fade-in-down {
-        from { opacity: 0; transform: translateY(-20px); }
-        to { opacity: 1; transform: translateY(0); }
+        from {
+            opacity: 0;
+            transform: translateY(-20px);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
     }
+
     @keyframes fade-in {
-        from { opacity: 0; }
-        to { opacity: 1; }
+        from {
+            opacity: 0;
+        }
+
+        to {
+            opacity: 1;
+        }
     }
+
     @keyframes width-grow {
-        from { width: 0; }
-        to { width: 5rem; }
+        from {
+            width: 0;
+        }
+
+        to {
+            width: 5rem;
+        }
     }
-    .animate-fade-in-up { animation: fade-in-up 0.8s ease-out forwards; }
-    .animate-fade-in-down { animation: fade-in-down 0.8s ease-out forwards; }
-    .animate-fade-in { animation: fade-in 1s ease-out forwards; }
-    .animate-width-grow { animation: width-grow 1s ease-out forwards; }
+
+    .animate-fade-in-up {
+        animation: fade-in-up 0.8s ease-out forwards;
+    }
+
+    .animate-fade-in-down {
+        animation: fade-in-down 0.8s ease-out forwards;
+    }
+
+    .animate-fade-in {
+        animation: fade-in 1s ease-out forwards;
+    }
+
+    .animate-width-grow {
+        animation: width-grow 1s ease-out forwards;
+    }
 </style>
 @endsection

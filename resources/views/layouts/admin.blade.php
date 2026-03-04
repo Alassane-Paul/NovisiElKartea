@@ -1,15 +1,26 @@
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Admin - Novisi Elkartea</title>
-    
+
     <!-- FontAwesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
+
+    <!-- SweetAlert2 -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
     @vite(['resources/css/app.css', 'resources/js/app.js'])
+
+    <style>
+        .ck-editor__editable_inline {
+            min-height: 200px;
+        }
+    </style>
 </head>
+
 <body class="bg-gray-100 font-sans antialiased">
     <div class="flex h-screen overflow-hidden">
         <!-- Sidebar -->
@@ -17,7 +28,7 @@
             <div class="h-16 flex items-center justify-center border-b border-teal-800">
                 <span class="text-xl font-bold tracking-wide">Novisi Admin</span>
             </div>
-            
+
             <nav class="flex-1 overflow-y-auto py-4">
                 <ul class="space-y-1">
                     <li>
@@ -26,9 +37,9 @@
                             <span>Dashboard</span>
                         </a>
                     </li>
-                    
+
                     <li class="px-6 py-2 text-xs font-semibold text-teal-200 uppercase tracking-wider mt-4">Contenu</li>
-                    
+
                     <li>
                         <a href="{{ route('admin.projects.index') }}" class="flex items-center px-6 py-3 hover:bg-teal-800 {{ request()->routeIs('admin.projects.*') ? 'bg-teal-800 border-l-4 border-orange-500' : '' }}">
                             <i class="fas fa-project-diagram w-6"></i>
@@ -59,9 +70,9 @@
                             <span>Pages</span>
                         </a>
                     </li>
-                    
+
                     <li class="px-6 py-2 text-xs font-semibold text-teal-200 uppercase tracking-wider mt-4">Configuration</li>
-                    
+
                     <li>
                         <a href="{{ route('admin.settings.index') }}" class="flex items-center px-6 py-3 hover:bg-teal-800 {{ request()->routeIs('admin.settings.*') ? 'bg-teal-800 border-l-4 border-orange-500' : '' }}">
                             <i class="fas fa-cogs w-6"></i>
@@ -76,7 +87,7 @@
                     </li>
                 </ul>
             </nav>
-            
+
             <div class="p-4 border-t border-teal-800">
                 <form method="POST" action="{{ route('admin.logout') }}">
                     @csrf
@@ -103,16 +114,100 @@
 
             <!-- Page Content -->
             <main class="flex-1 overflow-x-hidden overflow-y-auto bg-gray-100 p-6">
-                @if(session('success'))
-                    <div class="bg-green-100 border-l-4 border-green-500 text-green-700 p-4 mb-4" role="alert">
-                        <p>{{ session('success') }}</p>
-                    </div>
-                @endif
-
                 @yield('content')
             </main>
         </div>
     </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const Toast = Swal.mixin({
+                toast: true,
+                position: 'top-end',
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                    toast.addEventListener('mouseenter', Swal.stopTimer)
+                    toast.addEventListener('mouseleave', Swal.resumeTimer)
+                }
+            });
+
+            @if(session('success'))
+            Toast.fire({
+                icon: 'success',
+                title: "{{ session('success') }}"
+            });
+            @endif
+
+            @if(session('error'))
+            Swal.fire({
+                icon: 'error',
+                title: 'Erreur',
+                text: "{{ session('error') }}",
+                confirmButtonColor: '#0d9488'
+            });
+            @endif
+
+            @if(session('warning'))
+            Swal.fire({
+                icon: 'warning',
+                title: 'Attention',
+                text: "{{ session('warning') }}",
+                confirmButtonColor: '#0d9488'
+            });
+            @endif
+
+            @if(session('info'))
+            Toast.fire({
+                icon: 'info',
+                title: "{{ session('info') }}"
+            });
+            @endif
+
+            // Override native window.alert
+            window.alert = function(message) {
+                Swal.fire({
+                    text: message,
+                    confirmButtonColor: '#0d9488'
+                });
+            };
+
+            // Override native window.confirm
+            window.confirm = function(message) {
+                return Swal.fire({
+                    text: message,
+                    icon: 'question',
+                    showCancelButton: true,
+                    confirmButtonColor: '#0d9488',
+                    cancelButtonColor: '#6b7280',
+                    confirmButtonText: 'Confirmer',
+                    cancelButtonText: 'Annuler'
+                }).then((result) => {
+                    return result.isConfirmed;
+                });
+            };
+
+            // Listen for custom events (useful for AJAX or Livewire if added later)
+            window.addEventListener('swal:modal', event => {
+                Swal.fire({
+                    title: event.detail.title,
+                    text: event.detail.text,
+                    icon: event.detail.icon,
+                    confirmButtonColor: '#0d9488'
+                });
+            });
+
+            window.addEventListener('swal:toast', event => {
+                Toast.fire({
+                    icon: event.detail.icon,
+                    title: event.detail.title
+                });
+            });
+        });
+    </script>
+
     @stack('scripts')
 </body>
+
 </html>

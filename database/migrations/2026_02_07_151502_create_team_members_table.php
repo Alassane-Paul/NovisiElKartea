@@ -17,6 +17,8 @@ return new class extends Migration
             $table->json('name');
             $table->json('position');
             $table->json('bio')->nullable();
+            $table->string('category')->nullable()->index();
+            $table->text('mandate')->nullable();
             $table->string('photo')->nullable();
             $table->string('email')->nullable();
             $table->string('phone')->nullable();
@@ -24,7 +26,7 @@ return new class extends Migration
             $table->integer('order')->default(0);
             $table->boolean('active')->default(true);
             $table->timestamps();
-            
+
             $table->index('order');
             $table->index('active');
         });

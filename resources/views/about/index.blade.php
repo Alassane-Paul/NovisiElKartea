@@ -5,14 +5,14 @@
 @section('content')
 <div class="overflow-hidden">
     {{-- 1. Hero Section (from 'Qué es') --}}
-    <section class="relative min-h-[60vh] flex items-center justify-center pt-20">
+    <section class="relative min-h-[40vh] md:min-h-[60vh] flex items-center justify-center pt-12 md:pt-16">
         @if($whatPage && $whatPage->featured_image)
-            <div class="absolute inset-0 z-0">
-                <img src="{{ asset('storage/' . $whatPage->featured_image) }}" class="w-full h-full object-cover" alt="{{ $whatPage->title[app()->getLocale()] ?? $whatPage->title['es'] }}">
-                <div class="absolute inset-0 bg-gradient-to-r from-teal-900/90 to-teal-800/60 mix-blend-multiply"></div>
-            </div>
+        <div class="absolute inset-0 z-0">
+            <img src="{{ asset('storage/' . $whatPage->featured_image) }}" class="w-full h-full object-cover" alt="{{ $whatPage->title[app()->getLocale()] ?? $whatPage->title['es'] }}">
+            <div class="absolute inset-0 bg-gradient-to-r from-teal-900/90 to-teal-800/60 mix-blend-multiply"></div>
+        </div>
         @else
-            <div class="absolute inset-0 bg-gradient-to-br from-teal-900 to-[#00695c] z-0"></div>
+        <div class="absolute inset-0 bg-gradient-to-br from-teal-900 to-[#00695c] z-0"></div>
         @endif
 
         <div class="absolute bottom-0 left-0 w-full overflow-hidden leading-[0] transform rotate-180 z-10">
@@ -28,7 +28,7 @@
                     <span class="mx-2">/</span>
                     <span>{{ __('header.about') }}</span>
                 </nav>
-                <h1 class="text-4xl md:text-6xl font-bold mb-6 leading-tight animate-fade-in-up">
+                <h1 class="text-3xl md:text-6xl font-bold mb-6 leading-tight animate-fade-in-up" data-aos="fade-down">
                     {{ __('header.about') }}
                 </h1>
                 <div class="w-20 h-1.5 bg-[#ff9800] rounded-full animate-width-grow"></div>
@@ -38,7 +38,7 @@
 
     {{-- 2. "Qué es" Content Section --}}
     @if($whatPage)
-    <section class="py-20 relative bg-white border-b border-gray-50">
+    <section class="py-12 relative bg-white border-b border-gray-50" data-aos="fade-up">
         <div class="container mx-auto px-4">
             <div class="max-w-4xl mx-auto">
                 <h2 class="text-3xl font-bold text-teal-900 mb-8">{{ $whatPage->title[app()->getLocale()] ?? $whatPage->title['es'] }}</h2>
@@ -51,81 +51,101 @@
     @endif
 
     {{-- 3. "Quiénes somos" Section --}}
-    <section class="py-20 bg-gray-50">
-        <div class="container mx-auto px-4 text-center mb-16">
+    <section class="py-12 bg-gray-50 overflow-hidden">
+        <div class="container mx-auto px-4 text-center mb-10" data-aos="fade-up">
             <h2 class="text-3xl md:text-4xl font-bold text-teal-900 mb-4">{{ __('about.who_title') }}</h2>
             <div class="w-24 h-1.5 bg-orange-500 mx-auto rounded-full"></div>
         </div>
-        
+
         <div class="container mx-auto px-4">
             @foreach(['board', 'technical'] as $category)
-                @if(isset($members[$category]))
-                    <div class="mb-20 last:mb-0">
-                        <h3 class="text-2xl font-bold text-teal-800 mb-10 text-center uppercase tracking-wider">
-                            {{ App\Models\TeamMember::CATEGORIES[$category] }}
-                        </h3>
-                        
-                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                            @foreach($members[$category] as $member)
-                                <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden transition-all hover:shadow-xl hover:-translate-y-1 duration-300">
-                                    <div class="h-64 overflow-hidden bg-gray-100 relative group">
-                                        @if($member->photo)
-                                            <img src="{{ asset('storage/' . $member->photo) }}" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" alt="{{ $member->name[app()->getLocale()] ?? $member->name['es'] }}">
-                                        @else
-                                            <div class="w-full h-full flex items-center justify-center text-gray-300">
-                                                <i class="fas fa-user-circle text-8xl"></i>
-                                            </div>
-                                        @endif
-                                        <div class="absolute inset-0 bg-teal-900/10 opacity-0 group-hover:opacity-100 transition-opacity"></div>
-                                    </div>
-                                    <div class="p-8">
-                                        <h4 class="text-xl font-bold text-gray-900 mb-1">{{ $member->name[app()->getLocale()] ?? $member->name['es'] }}</h4>
-                                        <p class="text-orange-600 font-semibold mb-4 text-sm tracking-wide uppercase">{{ $member->position[app()->getLocale()] ?? $member->position['es'] }}</p>
-                                        @if($member->bio && isset($member->bio[app()->getLocale()]))
-                                            <p class="text-gray-600 text-sm leading-relaxed line-clamp-3 italic">{{ $member->bio[app()->getLocale()] }}</p>
-                                        @endif
-                                    </div>
-                                </div>
-                            @endforeach
+            @if(isset($members[$category]))
+            <div class="mb-12 last:mb-0">
+                <h3 class="text-xl md:text-2xl font-bold text-teal-800 mb-10 text-center uppercase tracking-wider" data-aos="fade-up">
+                    {{ $category === 'board' ? __('messages.board_directors') : __('messages.technical_team') }}
+                </h3>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    @foreach($members[$category] as $index => $member)
+                    <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden transition-all hover:shadow-xl hover:-translate-y-1 duration-300"
+                        data-aos="zoom-in" data-aos-delay="{{ ($index % 3) * 150 }}">
+                        <div class="aspect-[4/5] overflow-hidden bg-gray-100 relative group">
+                            @if($member->photo)
+                            <img src="{{ asset('storage/' . $member->photo) }}" class="w-full h-full object-cover object-top transition-transform duration-500 group-hover:scale-110" alt="{{ $member->name[app()->getLocale()] ?? $member->name['es'] }}">
+                            @else
+                            <div class="w-full h-full flex items-center justify-center text-gray-300">
+                                <i class="fas fa-user-circle text-8xl"></i>
+                            </div>
+                            @endif
+                            <div class="absolute inset-0 bg-teal-900/10 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                        </div>
+                        <div class="p-8 text-center">
+                            <h4 class="text-xl font-bold text-gray-900 mb-1 text-center">{{ $member->name[app()->getLocale()] ?? $member->name['es'] }}</h4>
+                            <p class="text-orange-600 font-semibold mb-4 text-sm tracking-wide uppercase text-center">{{ $member->position[app()->getLocale()] ?? $member->position['es'] }}</p>
+                            @if($member->bio && isset($member->bio[app()->getLocale()]))
+                            <div class="text-gray-600 text-sm italic content-justified">{!! $member->bio[app()->getLocale()] !!}</div>
+                            @endif
                         </div>
                     </div>
-                @endif
+                    @endforeach
+                </div>
+            </div>
+            @endif
             @endforeach
         </div>
     </section>
 
     {{-- 4. "Alianzas" Section --}}
-    <section class="py-20 bg-white">
-        <div class="container mx-auto px-4 text-center mb-16">
+    <section class="py-12 bg-white">
+        <div class="container mx-auto px-4 text-center mb-10" data-aos="fade-up">
             <h2 class="text-3xl md:text-4xl font-bold text-teal-900 mb-4">{{ __('about.partners_title') }}</h2>
             <div class="w-24 h-1.5 bg-teal-500 mx-auto rounded-full"></div>
         </div>
 
         <div class="container mx-auto px-4">
             @if($partnersPage && (isset($partnersPage->content[app()->getLocale()]) || isset($partnersPage->content['es'])))
-                <div class="prose prose-lg max-w-4xl mx-auto mb-16 text-center text-gray-600">
-                    {!! $partnersPage->content[app()->getLocale()] ?? $partnersPage->content['es'] !!}
-                </div>
+            <div class="prose prose-lg max-w-4xl mx-auto mb-10 text-center text-gray-600">
+                {!! $partnersPage->content[app()->getLocale()] ?? $partnersPage->content['es'] !!}
+            </div>
             @endif
 
-            <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-10 items-center">
-                @foreach($partners as $partner)
-                    <div class="bg-white p-6 rounded-2xl border border-gray-50 flex items-center justify-center grayscale hover:grayscale-0 transition-all duration-500 hover:shadow-md h-32">
-                        @if($partner->logo)
+            <div class="relative overflow-hidden py-4">
+                {{-- Gradient overlays for a smooth fade effect at edges --}}
+                <div class="absolute inset-y-0 left-0 w-20 bg-gradient-to-r from-white to-transparent z-10"></div>
+                <div class="absolute inset-y-0 right-0 w-20 bg-gradient-to-l from-white to-transparent z-10"></div>
+
+                <div class="marquee-container" data-aos="fade-up">
+                    <div class="marquee-content flex gap-10 items-center">
+                        {{-- First set of logos --}}
+                        @foreach($partners as $partner)
+                        <div class="bg-white p-6 rounded-2xl border border-gray-50 flex items-center justify-center transition-all duration-500 hover:shadow-md h-32 w-48 md:w-64 flex-shrink-0">
+                            @if($partner->logo)
                             <img src="{{ asset('storage/' . $partner->logo) }}" class="max-h-20 max-w-full object-contain" alt="{{ $partner->name[app()->getLocale()] ?? $partner->name['es'] }}">
-                        @else
+                            @else
                             <span class="text-gray-400 font-bold uppercase tracking-widest text-[10px] text-center px-2">{{ $partner->name[app()->getLocale()] ?? $partner->name['es'] }}</span>
-                        @endif
+                            @endif
+                        </div>
+                        @endforeach
+
+                        {{-- Duplicate set for seamless loop --}}
+                        @foreach($partners as $partner)
+                        <div class="bg-white p-6 rounded-2xl border border-gray-50 flex items-center justify-center transition-all duration-500 hover:shadow-md h-32 w-48 md:w-64 flex-shrink-0">
+                            @if($partner->logo)
+                            <img src="{{ asset('storage/' . $partner->logo) }}" class="max-h-20 max-w-full object-contain" alt="{{ $partner->name[app()->getLocale()] ?? $partner->name['es'] }}">
+                            @else
+                            <span class="text-gray-400 font-bold uppercase tracking-widest text-[10px] text-center px-2">{{ $partner->name[app()->getLocale()] ?? $partner->name['es'] }}</span>
+                            @endif
+                        </div>
+                        @endforeach
                     </div>
-                @endforeach
+                </div>
             </div>
-        </div>
     </section>
 
     {{-- 5. Final CTA --}}
-    <section class="py-20 bg-teal-900 text-white relative overflow-hidden">
+    <section class="py-12 bg-teal-900 text-white relative overflow-hidden">
         <div class="absolute top-0 right-0 w-96 h-96 bg-white/5 rounded-full -mr-32 -mt-32"></div>
-        <div class="container mx-auto px-4 relative z-10 text-center">
+        <div class="container mx-auto px-4 relative z-10 text-center" data-aos="zoom-in">
             <h2 class="text-3xl md:text-5xl font-bold mb-6">{{ __('about.cta_title') }}</h2>
             <p class="text-teal-100 text-lg mb-10 max-w-2xl mx-auto leading-relaxed">
                 {{ __('about.cta_description') }}
@@ -140,14 +160,60 @@
 
 <style>
     @keyframes fade-in-up {
-        from { opacity: 0; transform: translateY(20px); }
-        to { opacity: 1; transform: translateY(0); }
+        from {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
     }
+
     @keyframes width-grow {
-        from { width: 0; }
-        to { width: 5rem; }
+        from {
+            width: 0;
+        }
+
+        to {
+            width: 5rem;
+        }
     }
-    .animate-fade-in-up { animation: fade-in-up 0.8s ease-out forwards; }
-    .animate-width-grow { animation: width-grow 1s ease-out forwards; }
+
+    @keyframes marquee {
+        0% {
+            transform: translateX(0);
+        }
+
+        100% {
+            transform: translateX(-50%);
+        }
+    }
+
+    .animate-fade-in-up {
+        animation: fade-in-up 0.8s ease-out forwards;
+    }
+
+    .animate-width-grow {
+        animation: width-grow 1s ease-out forwards;
+    }
+
+    .marquee-container {
+        overflow: hidden;
+        width: 100%;
+    }
+
+    .marquee-content {
+        display: flex;
+        width: max-content;
+        animation: marquee 30s linear infinite;
+    }
+
+    .marquee-content:hover {
+        animation-play-state: paused;
+    }
+
+    /* Adjust animation speed based on number of items if possible, but 30s is a good middle ground */
 </style>
 @endsection

@@ -34,3 +34,12 @@
     border: 4px solid white;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
 }
+
+@keyframes pulse-subtle {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+}
+
+.animate-pulse-premium {
+    animation: pulse-subtle 2s infinite ease-in-out;
+}

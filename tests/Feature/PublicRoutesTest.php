@@ -21,10 +21,6 @@ class PublicRoutesTest extends TestCase
             '/que-hacemos/educacion',
             '/que-hacemos/interculturalidad',
             '/proyectos',
-            '/proyectos/afrikarte',
-            '/proyectos/diversidad',
-            '/proyectos/igualdad',
-            '/proyectos/new-generation',
             '/asociate',
             '/contacto',
         ];

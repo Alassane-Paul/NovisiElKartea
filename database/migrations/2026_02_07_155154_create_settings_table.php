@@ -14,14 +14,15 @@ return new class extends Migration
         Schema::create('settings', function (Blueprint $table) {
             $table->id();
             $table->string('key')->unique();
-            $table->json('value')->nullable();
-            $table->enum('type', ['text', 'json', 'boolean', 'number', 'file'])->default('text');
+            $table->text('value')->nullable();
+            $table->boolean('boolean_value')->nullable();
+            $table->string('type')->default('text');
             $table->string('group')->default('general');
             $table->string('label');
             $table->text('description')->nullable();
             $table->integer('order')->default(0);
             $table->timestamps();
-            
+
             $table->index(['group', 'key']);
         });
     }

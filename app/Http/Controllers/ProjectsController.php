@@ -12,23 +12,12 @@ class ProjectsController extends Controller
         return view('projects.index', compact('projects'));
     }
 
-    public function afrikarte()
+    public function show($slug)
     {
-        return view('projects.afrikarte');
-    }
+        $project = \App\Models\Project::where('slug', $slug)
+            ->where('status', 'active')
+            ->firstOrFail();
 
-    public function diversity()
-    {
-        return view('projects.diversity');
-    }
-
-    public function equality()
-    {
-        return view('projects.equality');
-    }
-
-    public function newGeneration()
-    {
-        return view('projects.new-generation');
+        return view('projects.show', compact('project'));
     }
 }

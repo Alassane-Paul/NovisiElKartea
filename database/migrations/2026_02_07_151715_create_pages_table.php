@@ -16,6 +16,7 @@ return new class extends Migration
             $table->json('title');
             $table->string('slug')->unique();
             $table->json('content')->nullable();
+            $table->string('featured_image')->nullable();
             $table->json('meta_title')->nullable();
             $table->json('meta_description')->nullable();
             $table->string('template')->default('default');

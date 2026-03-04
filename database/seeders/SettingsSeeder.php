@@ -53,31 +53,58 @@ class SettingsSeeder extends Seeder
         }
 
         // Contact Settings
-        Setting::firstOrCreate(['key' => 'contact_email'], [
-            'value' => 'contact@novisielkartea.org',
+        Setting::updateOrCreate(['key' => 'contact_email'], [
+            'value' => 'novisielkartea@outlook.es',
             'type' => 'email',
             'group' => 'contact',
             'label' => 'Email de contact',
             'description' => 'Email affiché sur le site',
             'order' => 100,
         ]);
-        
-        Setting::firstOrCreate(['key' => 'contact_phone'], [
-            'value' => '+34 000 000 000',
+
+        Setting::updateOrCreate(['key' => 'contact_phone'], [
+            'value' => '0034 946 75 68 68 / 631245242',
             'type' => 'text',
             'group' => 'contact',
             'label' => 'Téléphone',
             'description' => 'Numéro de téléphone principal',
             'order' => 101,
         ]);
-        
-         Setting::firstOrCreate(['key' => 'contact_address'], [
-            'value' => 'Calle Principal 123, Vitoria-Gasteiz',
+
+        Setting::updateOrCreate(['key' => 'contact_address'], [
+            'value' => 'C/SAGARMINAGA 7, PLANTA BAJA',
             'type' => 'text',
             'group' => 'contact',
-            'label' => 'Adresse',
-            'description' => 'Adresse postale complète',
+            'label' => 'Adresse (Rue)',
+            'description' => 'Rue et numéro',
             'order' => 102,
+        ]);
+
+        Setting::updateOrCreate(['key' => 'contact_municipality'], [
+            'value' => 'Bilbao',
+            'type' => 'text',
+            'group' => 'contact',
+            'label' => 'Municipalité',
+            'description' => 'Ville ou commune',
+            'order' => 103,
+        ]);
+
+        Setting::updateOrCreate(['key' => 'contact_zip'], [
+            'value' => '48004',
+            'type' => 'text',
+            'group' => 'contact',
+            'label' => 'Code Postal',
+            'description' => 'C.P.',
+            'order' => 104,
+        ]);
+
+        Setting::updateOrCreate(['key' => 'contact_territory'], [
+            'value' => 'Bizkaia',
+            'type' => 'text',
+            'group' => 'contact',
+            'label' => 'Territoire',
+            'description' => 'Province ou territoire',
+            'order' => 105,
         ]);
 
         // Site Settings

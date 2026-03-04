@@ -5,12 +5,13 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Setting;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class SettingController extends Controller
 {
     public function index()
     {
-        // Group settings by their 'group' column
+        // Group settings by their 'order' column
         $settings = Setting::orderBy('order')->get()->groupBy('group');
         return view('admin.settings.index', compact('settings'));
     }
@@ -36,8 +37,8 @@ class SettingController extends Controller
                 // Handle file uploads
                 if ($request->hasFile($key)) {
                     // Delete old file if exists
-                    if ($setting->value && \Storage::disk('public')->exists($setting->value)) {
-                        \Storage::disk('public')->delete($setting->value);
+                    if ($setting->value && Storage::disk('public')->exists($setting->value)) {
+                        Storage::disk('public')->delete($setting->value);
                     }
                     
                     // Store new file

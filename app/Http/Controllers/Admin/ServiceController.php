@@ -25,6 +25,7 @@ class ServiceController extends Controller
     {
         $request->validate([
             'slug' => 'required|unique:services,slug',
+            'category' => 'required|string',
             'icon' => 'nullable|string',
             'image' => 'nullable|image',
             'title.es' => 'required',
@@ -37,7 +38,7 @@ class ServiceController extends Controller
         }
 
         // Auto-translate handled by model trait if configured, ensuring basic fields are present
-        
+
         Service::create($data);
 
         return redirect()->route('admin.services.index')->with('success', 'Service créé avec succès.');
@@ -50,8 +51,9 @@ class ServiceController extends Controller
 
     public function update(Request $request, Service $service)
     {
-         $request->validate([
+        $request->validate([
             'slug' => 'required|unique:services,slug,' . $service->id,
+            'category' => 'required|string',
             'icon' => 'nullable|string',
             'image' => 'nullable|image',
             'title.es' => 'required',
@@ -76,7 +78,7 @@ class ServiceController extends Controller
         if ($service->image) {
             Storage::disk('public')->delete($service->image);
         }
-        
+
         $service->delete();
 
         return redirect()->route('admin.services.index')->with('success', 'Service supprimé avec succès.');

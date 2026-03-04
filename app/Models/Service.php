@@ -17,7 +17,8 @@ class Service extends Model
 
     protected $fillable = [
         'title',
-        'slug', 
+        'slug',
+        'category',
         'description',
         'content',
         'icon',
@@ -47,4 +48,9 @@ class Service extends Model
         'equality' => 'Igualdad y Derechos Humanos',
         'cooperation' => 'Cooperación al Desarrollo',
     ];
+
+    public function getCategoryLabel(): string
+    {
+        return self::CATEGORIES[$this->category] ?? $this->category ?? 'Sans catégorie';
+    }
 }

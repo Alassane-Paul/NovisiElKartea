@@ -3,24 +3,24 @@
 @section('title', __('join.title'))
 
 @section('content')
-<div class="relative bg-teal-800 py-20 mb-12">
+<div class="relative bg-teal-800 py-10 md:py-12 mb-6 md:mb-8">
     @if($page && $page->featured_image)
-        <div class="absolute inset-0 z-0">
-            <img src="{{ asset('storage/' . $page->featured_image) }}" class="w-full h-full object-cover opacity-30" alt="{{ $page->title[app()->getLocale()] ?? $page->title['es'] ?? __('join.title') }}">
-        </div>
+    <div class="absolute inset-0 z-0">
+        <img src="{{ asset('storage/' . $page->featured_image) }}" class="w-full h-full object-cover opacity-30" alt="{{ $page->title[app()->getLocale()] ?? $page->title['es'] ?? __('join.title') }}">
+    </div>
     @endif
     <div class="container mx-auto px-4 relative z-10 text-white text-center">
         <h1 class="text-4xl md:text-5xl font-bold mb-4">{{ $page->title[app()->getLocale()] ?? $page->title['es'] ?? __('join.title') }}</h1>
     </div>
 </div>
 
-<div class="container mx-auto px-4 py-12">
+<div class="container mx-auto px-4 py-8">
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
         <div class="prose prose-lg">
             @if($page)
-                {!! $page->content[app()->getLocale()] ?? $page->content['es'] !!}
+            {!! $page->content[app()->getLocale()] ?? $page->content['es'] !!}
             @else
-                <p>{{ __('join.default_content') }}</p>
+            <p>{{ __('join.default_content') }}</p>
             @endif
         </div>
 

@@ -44,18 +44,30 @@ trait HasTranslations
         $locale = $locale ?? app()->getLocale();
         $translations = $this->{$field};
         
+        // Si c'est déjà un tableau, on l'utilise
+        if (is_array($translations)) {
+            // OK
+        }
         // Si c'est une chaîne JSON, décode
-        if (is_string($translations)) {
-            $translations = json_decode($translations, true) ?? [];
+        elseif (is_string($translations)) {
+            $decoded = json_decode($translations, true);
+            if (json_last_error() === JSON_ERROR_NONE && is_array($decoded)) {
+                $translations = $decoded;
+            } else {
+                // Pas du JSON, c'est probablement une valeur brute (fallback)
+                return $translations;
+            }
+        } else {
+            return $field;
         }
         
-        // Fallback: es -> fr -> en -> eu -> clé
+        // Fallback: es -> fr -> en -> eu -> valeur brute
         return $translations[$locale] 
             ?? $translations['es'] 
             ?? $translations['fr'] 
             ?? $translations['en'] 
             ?? $translations['eu'] 
-            ?? $field;
+            ?? ($this->getOriginal($field) ?: $field);
     }
 
     /**

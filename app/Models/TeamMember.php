@@ -53,4 +53,11 @@ class TeamMember extends Model
     {
         return $this->position[app()->getLocale()] ?? $this->position['es'] ?? '';
     }
+
+    public function getCategoryLabel(): string
+    {
+        return $this->category === 'board'
+            ? __('messages.board_directors')
+            : __('messages.technical_team');
+    }
 }
