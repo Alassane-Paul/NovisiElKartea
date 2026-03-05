@@ -11,4 +11,6 @@ return [
     'placeholder_message' => 'Why do you want to join us?',
     'submit_button' => 'Join Novisi Elkartea',
     'default_content' => 'Become a member or volunteer and help us make a difference.',
+    'success_message' => 'Form submitted successfully! We will get back to you soon.',
+    'label_phone' => 'Phone',
 ];

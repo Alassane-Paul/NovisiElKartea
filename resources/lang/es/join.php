@@ -10,5 +10,7 @@ return [
     'label_message' => 'Mensaje (Opcional)',
     'placeholder_message' => '¿Por qué quieres unirte?',
     'submit_button' => 'Unirse a Novisi Elkartea',
-    'default_content' => 'Hazte socio o voluntario y ayúdanos a marcar la diferencia.',
+    'default_content' => 'Hazte socio o voluntario y ayúdanos a marcar la différence.',
+    'success_message' => '¡Formulario enviado con éxito! Nos pondremos en contacto contigo pronto.',
+    'label_phone' => 'Teléfono',
 ];

@@ -11,4 +11,6 @@ return [
     'placeholder_message' => 'Pourquoi voulez-vous nous rejoindre ?',
     'submit_button' => 'Rejoindre Novisi Elkartea',
     'default_content' => 'Devenez membre ou bénévole et aidez-nous à faire la différence.',
+    'success_message' => 'Formulaire envoyé avec succès ! Nous vous recontacterons bientôt.',
+    'label_phone' => 'Téléphone',
 ];

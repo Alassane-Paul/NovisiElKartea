@@ -11,4 +11,6 @@ return [
     'placeholder_message' => 'Zergatik gurekin bat egin nahi duzu?',
     'submit_button' => 'Batu Novisi Elkartera',
     'default_content' => 'Egin zaitez bazkide edo boluntario eta lagun iezaguzu aldea eragiten.',
+    'success_message' => 'Inprimakia ondo bidali da! Laster jarriko gara zurekin harremanetan.',
+    'label_phone' => 'Telefonoa',
 ];

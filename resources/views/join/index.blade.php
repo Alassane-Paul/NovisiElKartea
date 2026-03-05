@@ -36,6 +36,10 @@
                     <label for="email" class="block text-sm font-semibold text-gray-700 mb-2 uppercase tracking-wide">{{ __('join.label_email') }}</label>
                     <input type="email" id="email" name="email" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-transparent outline-none transition-all" placeholder="{{ __('join.placeholder_email') }}" required>
                 </div>
+                <div class="mb-6">
+                    <label for="phone" class="block text-sm font-semibold text-gray-700 mb-2 uppercase tracking-wide">{{ __('join.label_phone') }}</label>
+                    <input type="text" id="phone" name="phone" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-transparent outline-none transition-all" placeholder="+34 ...">
+                </div>
                 <div class="mb-8">
                     <label for="message" class="block text-sm font-semibold text-gray-700 mb-2 uppercase tracking-wide">{{ __('join.label_message') }}</label>
                     <textarea id="message" name="message" rows="4" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-transparent outline-none transition-all" placeholder="{{ __('join.placeholder_message') }}"></textarea>

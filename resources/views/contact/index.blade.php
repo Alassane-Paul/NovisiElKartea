@@ -115,6 +115,16 @@
                                 <input type="email" id="email" name="email" required placeholder="{{ __('join.placeholder_email') }}"
                                     class="w-full px-5 py-4 bg-gray-50 border border-gray-100 rounded-2xl focus:ring-4 focus:ring-teal-500/10 focus:border-teal-500 transition-all outline-none text-gray-700">
                             </div>
+                            <div class="form-group">
+                                <label for="phone" class="block text-sm font-bold text-gray-700 mb-2">{{ __('contact.label_phone') }}</label>
+                                <input type="text" id="phone" name="phone" placeholder="+34 ..."
+                                    class="w-full px-5 py-4 bg-gray-50 border border-gray-100 rounded-2xl focus:ring-4 focus:ring-teal-500/10 focus:border-teal-500 transition-all outline-none text-gray-700">
+                            </div>
+                            <div class="form-group">
+                                <label for="subject" class="block text-sm font-bold text-gray-700 mb-2">{{ __('contact.label_subject') }}</label>
+                                <input type="text" id="subject" name="subject" placeholder="{{ __('contact.placeholder_subject') }}"
+                                    class="w-full px-5 py-4 bg-gray-50 border border-gray-100 rounded-2xl focus:ring-4 focus:ring-teal-500/10 focus:border-teal-500 transition-all outline-none text-gray-700">
+                            </div>
                         </div>
 
                         <div class="form-group">
