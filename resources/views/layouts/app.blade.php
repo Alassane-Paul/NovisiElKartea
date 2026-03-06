@@ -55,7 +55,7 @@
                 <div class="flex space-x-4 text-gray-500">
                     @foreach(['facebook', 'twitter', 'instagram', 'linkedin', 'youtube', 'tiktok', 'pinterest', 'whatsapp', 'telegram', 'snapchat'] as $key)
                     @if(($settings["social_{$key}_active"] ?? false) && ($settings["social_{$key}_url"] ?? '#') !== '#')
-                    <a href="{{ $settings["social_{$key}_url"] }}" target="_blank" rel="noopener noreferrer" class="hover:text-[#009688] transition-colors">
+                    <a href="{{ $settings['social_{$key}_url'] }}" target="_blank" rel="noopener noreferrer" class="hover:text-[#009688] transition-colors">
                         <i class="fab fa-{{ $key === 'twitter' ? 'x-twitter' : ($key === 'linkedin' ? 'linkedin-in' : $key) }}"></i>
                     </a>
                     @endif
@@ -357,22 +357,26 @@
             });
 
             // Motion One Animations
-            const {
-                animate,
-                stagger
-            } = Motion;
+            const motionObj = window.motion || window.Motion || (typeof Motion !== 'undefined' ? Motion : null);
 
-            // Animate Navigation Items
-            animate(
-                "nav > div, nav > a", {
-                    opacity: [0, 1],
-                    y: [-20, 0]
-                }, {
-                    delay: stagger(0.1),
-                    duration: 0.8,
-                    easing: "ease-out"
-                }
-            );
+            if (motionObj) {
+                const {
+                    animate,
+                    stagger
+                } = motionObj;
+
+                // Animate Navigation Items
+                animate(
+                    "nav > div, nav > a", {
+                        opacity: [0, 1],
+                        y: [-20, 0]
+                    }, {
+                        delay: stagger(0.1),
+                        duration: 0.8,
+                        easing: "ease-out"
+                    }
+                );
+            }
 
             // Pulse effect handled by CSS .animate-pulse-premium
 

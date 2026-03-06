@@ -21,6 +21,7 @@ class ContactFormSubmitted extends Mailable
     public function __construct(ContactSubmission $submission)
     {
         $this->submission = $submission;
+        $this->locale('es');
     }
 
     /**
@@ -28,9 +29,11 @@ class ContactFormSubmitted extends Mailable
      */
     public function envelope(): Envelope
     {
-        $typeLabel = ContactSubmission::TYPES[$this->submission->type] ?? "Contacto";
+        $typeLabel = \App\Models\ContactSubmission::TYPES[$this->submission->type] ?? __('emails.form_type', [], 'es');
+        $subject = $this->submission->subject ?? __('emails.no_subject', [], 'es');
+
         return new Envelope(
-            subject: "Nouvelle soumission ($typeLabel) : " . ($this->submission->subject ?? 'Sans sujet'),
+            subject: __('emails.email_subject_prefix', [], 'es') . " ($typeLabel) : " . $subject,
         );
     }
 
@@ -40,7 +43,7 @@ class ContactFormSubmitted extends Mailable
     public function content(): Content
     {
         return new Content(
-            markdown: 'emails.contact-form',
+            view: 'emails.contact-form-premium',
         );
     }
 
