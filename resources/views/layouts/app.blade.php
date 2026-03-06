@@ -116,12 +116,14 @@
                     <button class="flex items-center hover:text-[#009688] focus:outline-none py-4 transition-colors">
                         {{ __('header.projects') }} <i class="fas fa-chevron-down ml-1 text-[10px] text-gray-400 group-hover:text-[#009688]"></i>
                     </button>
-                    <div class="absolute left-0 top-full mt-0 w-56 bg-white border border-gray-100 shadow-xl rounded-b-lg hidden group-hover:block z-50">
+                    <div class="absolute left-0 top-full mt-0 w-64 bg-white border border-gray-100 shadow-xl rounded-b-lg hidden group-hover:block z-50">
                         <div class="py-2">
-                            <a href="{{ route('projects.show', 'afrikarte') }}" class="block px-4 py-2 hover:bg-gray-50 hover:text-[#009688]">{{ __('header.projects_afrikarte') }}</a>
-                            <a href="{{ route('projects.show', 'diversidad') }}" class="block px-4 py-2 hover:bg-gray-50 hover:text-[#009688]">{{ __('header.projects_diversity') }}</a>
-                            <a href="{{ route('projects.show', 'igualdad') }}" class="block px-4 py-2 hover:bg-gray-50 hover:text-[#009688]">{{ __('header.projects_equality') }}</a>
-                            <a href="{{ route('projects.show', 'new-generation') }}" class="block px-4 py-2 hover:bg-gray-50 hover:text-[#009688]">{{ __('header.projects_new_generation') }}</a>
+                            <a href="{{ route('projects.index') }}" class="block px-4 py-2 hover:bg-gray-50 hover:text-[#009688] font-bold border-b border-gray-50">{{ __('header.projects') }}</a>
+                            @foreach($navProjects as $p)
+                            <a href="{{ route('projects.show', $p->slug) }}" class="block px-4 py-2 hover:bg-gray-50 hover:text-[#009688]">
+                                {{ $p->current_title }}
+                            </a>
+                            @endforeach
                         </div>
                     </div>
                 </div>
@@ -209,22 +211,16 @@
                     <div class="px-8 py-4 border-b border-gray-50 mb-4">
                         <div class="text-xs font-bold text-gray-400 uppercase tracking-widest mb-4">{{ __('header.projects') }}</div>
                         <div class="space-y-1 ml-2 border-l border-gray-100">
-                            <a href="{{ route('projects.show', 'afrikarte') }}" class="flex items-center gap-3 pl-6 py-2 transition-colors {{ request()->fullUrlIs(route('projects.show', 'afrikarte')) ? 'text-teal-600 font-bold' : 'text-gray-600 hover:text-teal-600' }} text-base">
+                            <a href="{{ route('projects.index') }}" class="flex items-center gap-3 pl-6 py-2 transition-colors {{ request()->routeIs('projects.index') ? 'text-teal-600 font-bold' : 'text-gray-600 hover:text-teal-600' }} text-base border-b border-gray-50 pb-2 mb-1">
                                 <span class="w-1 h-1 bg-gray-300 rounded-full"></span>
-                                {{ __('header.projects_afrikarte') }}
+                                {{ __('header.projects_all') ?? 'Todos los proyectos' }}
                             </a>
-                            <a href="{{ route('projects.show', 'diversidad') }}" class="flex items-center gap-3 pl-6 py-2 transition-colors {{ request()->fullUrlIs(route('projects.show', 'diversidad')) ? 'text-teal-600 font-bold' : 'text-gray-600 hover:text-teal-600' }} text-base">
+                            @foreach($navProjects as $p)
+                            <a href="{{ route('projects.show', $p->slug) }}" class="flex items-center gap-3 pl-6 py-2 transition-colors {{ request()->fullUrlIs(route('projects.show', $p->slug)) ? 'text-teal-600 font-bold' : 'text-gray-600 hover:text-teal-600' }} text-base">
                                 <span class="w-1 h-1 bg-gray-300 rounded-full"></span>
-                                {{ __('header.projects_diversity') }}
+                                {{ $p->current_title }}
                             </a>
-                            <a href="{{ route('projects.show', 'igualdad') }}" class="flex items-center gap-3 pl-6 py-2 transition-colors {{ request()->fullUrlIs(route('projects.show', 'igualdad')) ? 'text-teal-600 font-bold' : 'text-gray-600 hover:text-teal-600' }} text-base">
-                                <span class="w-1 h-1 bg-gray-300 rounded-full"></span>
-                                {{ __('header.projects_equality') }}
-                            </a>
-                            <a href="{{ route('projects.show', 'new-generation') }}" class="flex items-center gap-3 pl-6 py-2 transition-colors {{ request()->fullUrlIs(route('projects.show', 'new-generation')) ? 'text-teal-600 font-bold' : 'text-gray-600 hover:text-teal-600' }} text-base">
-                                <span class="w-1 h-1 bg-gray-300 rounded-full"></span>
-                                {{ __('header.projects_new_generation') }}
-                            </a>
+                            @endforeach
                         </div>
                     </div>
 

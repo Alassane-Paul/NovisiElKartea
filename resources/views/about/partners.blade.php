@@ -31,7 +31,7 @@
                     <span>{{ __('header.about') }}</span>
                 </nav>
                 <h1 class="text-4xl md:text-6xl font-bold mb-6 leading-tight animate-fade-in-up" data-aos="fade-down" data-aos-duration="1000">
-                    {{ $page->title[app()->getLocale()] ?? $page->title['es'] ?? __('about.partners_title') }}
+                    {{ $page->current_title ?: __('about.partners_title') }}
                 </h1>
                 <div class="w-20 h-1.5 bg-[#ff9800] rounded-full animate-width-grow"></div>
             </div>
@@ -40,9 +40,9 @@
 </div>
 
 <div class="container mx-auto px-4 py-12">
-    @if($page && (isset($page->content[app()->getLocale()]) || isset($page->content['es'])))
+    @if($page && $page->current_content)
     <div class="prose prose-lg max-w-4xl mx-auto mb-12 text-center" data-aos="fade-up">
-        {!! $page->content[app()->getLocale()] ?? $page->content['es'] !!}
+        {!! $page->current_content !!}
     </div>
     @endif
 

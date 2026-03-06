@@ -53,4 +53,19 @@ class Service extends Model
     {
         return self::CATEGORIES[$this->category] ?? $this->category ?? 'Sans catégorie';
     }
+
+    public function getCurrentTitleAttribute()
+    {
+        return $this->title[app()->getLocale()] ?? $this->title['es'] ?? '';
+    }
+
+    public function getCurrentDescriptionAttribute()
+    {
+        return $this->description[app()->getLocale()] ?? $this->description['es'] ?? '';
+    }
+
+    public function getCurrentContentAttribute()
+    {
+        return $this->content[app()->getLocale()] ?? $this->content['es'] ?? '';
+    }
 }

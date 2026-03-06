@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', $page->title[app()->getLocale()] ?? $page->title['es'])
+@section('title', $page->current_title)
 
 @section('content')
 <div class="overflow-hidden">
@@ -9,7 +9,7 @@
         {{-- Background Image with Parallax-like Overlay --}}
         @if($page->featured_image)
         <div class="absolute inset-0 z-0">
-            <img src="{{ asset('storage/' . $page->featured_image) }}" class="w-full h-full object-cover" alt="{{ $page->title[app()->getLocale()] ?? $page->title['es'] }}">
+            <img src="{{ asset('storage/' . $page->featured_image) }}" class="w-full h-full object-cover" alt="{{ $page->current_title }}">
             <div class="absolute inset-0 bg-gradient-to-r from-teal-900/90 to-teal-800/60 mix-blend-multiply"></div>
         </div>
         @else
@@ -31,7 +31,7 @@
                     <span>{{ __('header.about') }}</span>
                 </nav>
                 <h1 class="text-4xl md:text-6xl font-bold mb-6 leading-tight animate-fade-in-up" data-aos="fade-down" data-aos-duration="1000">
-                    {{ $page->title[app()->getLocale()] ?? $page->title['es'] }}
+                    {{ $page->current_title }}
                 </h1>
                 <div class="w-20 h-1.5 bg-[#ff9800] rounded-full animate-width-grow"></div>
             </div>
@@ -50,7 +50,7 @@
         <div class="container mx-auto px-4">
             <div class="max-w-4xl mx-auto">
                 <div class="prose prose-lg lg:prose-xl prose-teal max-w-none text-gray-700 leading-relaxed space-y-8 animate-fade-in" data-aos="fade-up">
-                    {!! $page->content[app()->getLocale()] ?? $page->content['es'] !!}
+                    {!! $page->current_content !!}
                 </div>
 
                 {{-- Call to Action Card --}}

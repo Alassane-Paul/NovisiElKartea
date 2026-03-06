@@ -27,6 +27,7 @@ return [
     'projects_diversity' => 'Ikasi eta hazi aniztasunean eta berdintasunean, elkarrekiko ikuspegitik',
     'projects_equality' => 'Berdintasuna eraikitzea Giza Eskubideen hezkuntzaren bidez',
     'projects_new_generation' => 'Belaunaldi Berria',
+    'projects_all' => 'Proiektu guztiak',
 
     'lang_es' => 'ESP',
     'lang_eu' => 'EUS',

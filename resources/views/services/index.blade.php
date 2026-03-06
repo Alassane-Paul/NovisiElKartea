@@ -30,7 +30,7 @@
                     <div class="w-full lg:w-1/2 relative" data-aos="{{ $index % 2 == 0 ? 'fade-right' : 'fade-left' }}" data-aos-duration="1000">
                         <div class="aspect-video rounded-2xl overflow-hidden premium-contour relative group">
                             @if($service->image)
-                            <img src="{{ asset('storage/' . $service->image) }}" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" alt="{{ $service->title[app()->getLocale()] ?? $service->title['es'] }}">
+                            <img src="{{ asset('storage/' . $service->image) }}" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" alt="{{ $service->current_title }}">
                             @else
                             <div class="w-full h-full bg-gradient-to-br from-teal-700 to-teal-900 flex items-center justify-center">
                                 <i class="{{ $service->icon ?? 'fas fa-hand-holding-heart' }} text-white text-9xl opacity-20 transition-transform group-hover:scale-110 duration-500"></i>
@@ -47,10 +47,10 @@
                         <div class="max-w-xl mx-auto lg:mx-0">
                             <span class="text-orange-600 font-bold uppercase tracking-widest text-sm mb-4 block">{{ __('messages.service_number') }} {{ $index + 1 }}</span>
                             <h2 class="text-3xl md:text-4xl font-bold text-teal-900 mb-6 leading-tight">
-                                {{ $service->title[app()->getLocale()] ?? $service->title['es'] }}
+                                {{ $service->current_title }}
                             </h2>
                             <div class="prose prose-lg text-gray-600 mb-10 leading-relaxed">
-                                {!! $service->description[app()->getLocale()] ?? $service->description['es'] !!}
+                                {!! $service->current_description !!}
                             </div>
                             <div class="flex flex-wrap gap-4">
                                 <a href="{{ route('services.show', $service->slug) }}" class="inline-flex items-center justify-center bg-teal-800 hover:bg-teal-900 text-white font-bold py-3 px-8 rounded-xl transition-all shadow-md hover:shadow-lg transform hover:-translate-y-0.5">

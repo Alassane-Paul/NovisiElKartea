@@ -24,6 +24,10 @@ class AppServiceProvider extends ServiceProvider
             ['layouts.app', 'about.*', 'services.*', 'projects.*', 'contact.*', 'home'],
             \App\Http\View\Composers\SettingsComposer::class
         );
+        \Illuminate\Support\Facades\View::composer(
+            ['layouts.app'],
+            \App\Http\View\Composers\MenuComposer::class
+        );
         URL::forceScheme('https');
     }
 }

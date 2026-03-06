@@ -27,6 +27,7 @@ return [
     'projects_diversity' => 'Diversity',
     'projects_equality' => 'Equality',
     'projects_new_generation' => 'New Generation',
+    'projects_all' => 'All projects',
 
     'lang_es' => 'ESP',
     'lang_eu' => 'EUS',

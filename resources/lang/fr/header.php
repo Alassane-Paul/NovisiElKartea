@@ -28,6 +28,7 @@ return [
     'projects_diversity' => 'Diversité',
     'projects_equality' => 'Égalité',
     'projects_new_generation' => 'Nouvelle génération',
+    'projects_all' => 'Tous les projets',
 
     'lang_es' => 'ESP',
     'lang_eu' => 'UE',

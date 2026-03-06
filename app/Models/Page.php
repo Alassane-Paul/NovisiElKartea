@@ -42,4 +42,14 @@ class Page extends Model
         'about-partners' => 'Alianzas',
         'asociate' => 'Asóciate',
     ];
+
+    public function getCurrentTitleAttribute()
+    {
+        return $this->title[app()->getLocale()] ?? $this->title['es'] ?? '';
+    }
+
+    public function getCurrentContentAttribute()
+    {
+        return $this->content[app()->getLocale()] ?? $this->content['es'] ?? '';
+    }
 }

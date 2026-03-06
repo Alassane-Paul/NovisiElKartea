@@ -16,8 +16,9 @@ class AboutController extends Controller
             ->groupBy('category');
         $partnersPage = \App\Models\Page::where('slug', 'about-partners')->first();
         $partners = \App\Models\Partner::where('active', true)->orderBy('order')->get();
+        $featuredProjects = \App\Models\Project::active()->featured()->latest()->take(3)->get();
 
-        return view('about.index', compact('whatPage', 'members', 'partnersPage', 'partners'));
+        return view('about.index', compact('whatPage', 'members', 'partnersPage', 'partners', 'featuredProjects'));
     }
 
     public function what()
@@ -34,7 +35,7 @@ class AboutController extends Controller
             ->get()
             ->groupBy('category');
         $categoryNames = TeamMember::CATEGORIES;
-            
+
         return view('about.who', compact('members', 'categoryNames', 'page'));
     }
 

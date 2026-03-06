@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', $service->title[app()->getLocale()] ?? $service->title['es'])
+@section('title', $service->current_title)
 
 @section('content')
 <div class="overflow-hidden bg-gray-50">
@@ -8,7 +8,7 @@
     <section class="relative min-h-[40vh] md:min-h-[50vh] flex items-center justify-center pt-16 pb-12 bg-teal-900 overflow-hidden">
         <div class="absolute inset-0 z-0">
             @if($service->image)
-            <img src="{{ asset('storage/' . $service->image) }}" class="w-full h-full object-cover opacity-40 mix-blend-overlay" alt="{{ $service->title[app()->getLocale()] ?? $service->title['es'] }}">
+            <img src="{{ asset('storage/' . $service->image) }}" class="w-full h-full object-cover opacity-40 mix-blend-overlay" alt="{{ $service->current_title }}">
             @endif
             <div class="absolute inset-0 bg-gradient-to-t from-teal-900 via-teal-900/40 to-transparent"></div>
         </div>
@@ -18,7 +18,7 @@
                 <i class="{{ $service->icon ?? 'fas fa-hand-holding-heart' }} text-orange-400 text-2xl md:text-3xl"></i>
             </div>
             <h1 class="text-3xl md:text-5xl font-bold text-white mb-6 uppercase tracking-tight px-4">
-                {{ $service->title[app()->getLocale()] ?? $service->title['es'] }}
+                {{ $service->current_title }}
             </h1>
             <div class="w-20 h-1 bg-orange-500 mx-auto rounded-full"></div>
 
@@ -39,19 +39,19 @@
                     {{-- Service Image & Introduction --}}
                     @if($service->image)
                     <div class="mb-12 rounded-3xl overflow-hidden shadow-2xl premium-contour">
-                        <img src="{{ asset('storage/' . $service->image) }}" class="w-full h-auto object-cover" alt="{{ $service->title[app()->getLocale()] ?? $service->title['es'] }}">
+                        <img src="{{ asset('storage/' . $service->image) }}" class="w-full h-auto object-cover" alt="{{ $service->current_title }}">
                     </div>
                     @endif
 
-                    @if($service->description[app()->getLocale()] ?? $service->description['es'] ?? false)
+                    @if($service->current_description)
                     <div class="text-xl text-teal-800 font-medium mb-12 leading-relaxed border-l-4 border-orange-500 pl-6 italic bg-teal-50/30 py-6 rounded-r-2xl pr-6">
-                        {!! $service->description[app()->getLocale()] ?? $service->description['es'] !!}
+                        {!! $service->current_description !!}
                     </div>
                     @endif
 
                     {{-- Main Content --}}
                     <div class="prose prose-lg max-w-none text-gray-600 prose-headings:text-teal-900 prose-a:text-orange-600 prose-strong:text-teal-900 leading-relaxed">
-                        {!! $service->content[app()->getLocale()] ?? $service->content['es'] !!}
+                        {!! $service->current_content !!}
                     </div>
 
                     {{-- CTA --}}

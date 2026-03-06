@@ -59,7 +59,7 @@
                 data-aos="zoom-in" data-aos-delay="{{ ($idx % 4) * 150 }}">
                 <div class="aspect-[4/5] overflow-hidden bg-gray-100">
                     @if($member->photo)
-                    <img src="{{ asset('storage/' . $member->photo) }}" class="w-full h-full object-cover object-top premium-contour" alt="{{ $member->name[app()->getLocale()] ?? $member->name['es'] }}">
+                    <img src="{{ asset('storage/' . $member->photo) }}" class="w-full h-full object-cover object-top premium-contour" alt="{{ $member->current_name }}">
                     @else
                     <div class="w-full h-full flex items-center justify-center text-gray-400">
                         <i class="fas fa-user-circle text-7xl"></i>
@@ -67,8 +67,8 @@
                     @endif
                 </div>
                 <div class="p-6 text-center">
-                    <h3 class="text-xl font-bold text-gray-800 mb-2 text-center">{{ $member->name[app()->getLocale()] ?? $member->name['es'] }}</h3>
-                    <p class="text-orange-600 font-semibold mb-4 text-center">{{ $member->position[app()->getLocale()] ?? $member->position['es'] }}</p>
+                    <h3 class="text-xl font-bold text-gray-800 mb-2 text-center">{{ $member->current_name }}</h3>
+                    <p class="text-orange-600 font-semibold mb-4 text-center">{{ $member->current_position }}</p>
                     @if($member->bio && isset($member->bio[app()->getLocale()]))
                     <div class="text-gray-600 text-sm italic content-justified">{!! $member->bio[app()->getLocale()] !!}</div>
                     @endif

@@ -8,7 +8,7 @@
     <section class="relative min-h-[40vh] md:min-h-[50vh] flex items-center justify-center pt-12 md:pt-16 pb-12">
         <div class="absolute inset-0 z-0 bg-gradient-to-br from-teal-900 to-[#00695c]">
             @if($project->image)
-            <img src="{{ asset('storage/' . $project->image) }}" class="w-full h-full object-cover opacity-30" alt="{{ $project->title[app()->getLocale()] ?? $project->title['es'] }}">
+            <img src="{{ asset('storage/' . $project->image) }}" class="w-full h-full object-cover opacity-30" alt="{{ $project->current_title }}">
             @endif
             <div class="absolute inset-0 bg-gradient-to-r from-teal-900/60 to-teal-800/30 mix-blend-multiply"></div>
         </div>
@@ -23,7 +23,7 @@
         <div class="container mx-auto px-4 relative z-20 text-white text-center">
             <span class="text-teal-200 font-bold uppercase tracking-widest text-xs mb-4 block animate-fade-in-down">{{ $project->category ?? __('messages.general') }}</span>
             <h1 class="text-3xl md:text-5xl lg:text-6xl font-bold mb-6 animate-fade-in-up leading-tight">
-                {{ $project->title[app()->getLocale()] ?? $project->title['es'] }}
+                {{ $project->current_title }}
             </h1>
             <div class="w-20 h-1.5 bg-[#ff9800] mx-auto rounded-full animate-width-grow"></div>
         </div>
@@ -58,12 +58,12 @@
 
                 {{-- Description Short --}}
                 <div class="text-xl md:text-2xl text-teal-900 font-medium mb-12 italic leading-relaxed text-center" data-aos="fade-up" data-aos-delay="100">
-                    {!! $project->description[app()->getLocale()] ?? $project->description['es'] !!}
+                    {!! $project->current_description !!}
                 </div>
 
                 {{-- Main Content --}}
                 <div class="prose prose-lg max-w-none text-gray-700 leading-relaxed content-justified" data-aos="fade-up" data-aos-delay="200">
-                    {!! $project->content[app()->getLocale()] ?? $project->content['es'] !!}
+                    {!! $project->current_content !!}
                 </div>
 
                 {{-- Contact CTA --}}

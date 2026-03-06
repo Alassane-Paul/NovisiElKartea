@@ -8,7 +8,7 @@
     <section class="relative min-h-[40vh] md:min-h-[60vh] flex items-center justify-center pt-12 md:pt-16">
         @if($whatPage && $whatPage->featured_image)
         <div class="absolute inset-0 z-0">
-            <img src="{{ asset('storage/' . $whatPage->featured_image) }}" class="w-full h-full object-cover" alt="{{ $whatPage->title[app()->getLocale()] ?? $whatPage->title['es'] }}">
+            <img src="{{ asset('storage/' . $whatPage->featured_image) }}" class="w-full h-full object-cover" alt="{{ $whatPage->current_title }}">
             <div class="absolute inset-0 bg-gradient-to-r from-teal-900/90 to-teal-800/60 mix-blend-multiply"></div>
         </div>
         @else
@@ -41,9 +41,9 @@
     <section class="py-12 relative bg-white border-b border-gray-50" data-aos="fade-up">
         <div class="container mx-auto px-4">
             <div class="max-w-4xl mx-auto">
-                <h2 class="text-3xl font-bold text-teal-900 mb-8">{{ $whatPage->title[app()->getLocale()] ?? $whatPage->title['es'] }}</h2>
+                <h2 class="text-3xl font-bold text-teal-900 mb-8">{{ $whatPage->current_title }}</h2>
                 <div class="prose prose-lg prose-teal max-w-none text-gray-700 leading-relaxed">
-                    {!! $whatPage->content[app()->getLocale()] ?? $whatPage->content['es'] !!}
+                    {!! $whatPage->current_content !!}
                 </div>
             </div>
         </div>
@@ -71,7 +71,7 @@
                         data-aos="zoom-in" data-aos-delay="{{ ($index % 3) * 150 }}">
                         <div class="aspect-[4/5] overflow-hidden bg-gray-100 relative group">
                             @if($member->photo)
-                            <img src="{{ asset('storage/' . $member->photo) }}" class="w-full h-full object-cover object-top transition-transform duration-500 group-hover:scale-110" alt="{{ $member->name[app()->getLocale()] ?? $member->name['es'] }}">
+                            <img src="{{ asset('storage/' . $member->photo) }}" class="w-full h-full object-cover object-top transition-transform duration-500 group-hover:scale-110" alt="{{ $member->current_name }}">
                             @else
                             <div class="w-full h-full flex items-center justify-center text-gray-300">
                                 <i class="fas fa-user-circle text-8xl"></i>
@@ -80,8 +80,8 @@
                             <div class="absolute inset-0 bg-teal-900/10 opacity-0 group-hover:opacity-100 transition-opacity"></div>
                         </div>
                         <div class="p-8 text-center">
-                            <h4 class="text-xl font-bold text-gray-900 mb-1 text-center">{{ $member->name[app()->getLocale()] ?? $member->name['es'] }}</h4>
-                            <p class="text-orange-600 font-semibold mb-4 text-sm tracking-wide uppercase text-center">{{ $member->position[app()->getLocale()] ?? $member->position['es'] }}</p>
+                            <h4 class="text-xl font-bold text-gray-900 mb-1 text-center">{{ $member->current_name }}</h4>
+                            <p class="text-orange-600 font-semibold mb-4 text-sm tracking-wide uppercase text-center">{{ $member->current_position }}</p>
                             @if($member->bio && isset($member->bio[app()->getLocale()]))
                             <div class="text-gray-600 text-sm italic content-justified">{!! $member->bio[app()->getLocale()] !!}</div>
                             @endif
@@ -142,7 +142,60 @@
             </div>
     </section>
 
-    {{-- 5. Final CTA --}}
+    {{-- 5. Featured Projects Section --}}
+    @if($featuredProjects->count() > 0)
+    <section class="py-20 bg-gray-50 overflow-hidden">
+        <div class="container mx-auto px-4 text-center mb-16" data-aos="fade-up">
+            <h2 class="text-3xl md:text-5xl font-bold text-teal-900 mb-4">{{ __('messages.featured_projects') ?? 'Proyectos Destacados' }}</h2>
+            <div class="w-24 h-1.5 bg-orange-500 mx-auto rounded-full"></div>
+        </div>
+
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+                @foreach($featuredProjects as $idx => $project)
+                <div class="bg-white rounded-[2rem] overflow-hidden shadow-xl shadow-teal-900/5 group hover:shadow-2xl hover:shadow-teal-900/10 transition-all duration-500 hover:-translate-y-2 border border-gray-100"
+                    data-aos="fade-up" data-aos-delay="{{ $idx * 100 }}">
+                    {{-- Project Image --}}
+                    <div class="aspect-video relative overflow-hidden">
+                        @if($project->image)
+                        <img src="{{ asset('storage/' . $project->image) }}" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" alt="{{ $project->current_title }}">
+                        @else
+                        <div class="w-full h-full bg-teal-800 flex items-center justify-center">
+                            <i class="fas fa-project-diagram text-white/20 text-6xl"></i>
+                        </div>
+                        @endif
+                        <div class="absolute inset-0 bg-gradient-to-t from-teal-900/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                        <div class="absolute bottom-4 left-6">
+                            <span class="bg-orange-500 text-white text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-widest shadow-lg">{{ $project->category ?? __('messages.general') }}</span>
+                        </div>
+                    </div>
+
+                    {{-- Project Content --}}
+                    <div class="p-8">
+                        <h3 class="text-2xl font-bold text-teal-900 mb-4 leading-tight group-hover:text-teal-700 transition-colors">{{ $project->current_title }}</h3>
+                        <div class="text-gray-600 line-clamp-3 mb-6 text-sm leading-relaxed">
+                            {!! strip_tags($project->current_description) !!}
+                        </div>
+                        <a href="{{ route('projects.show', $project->slug) }}" class="inline-flex items-center text-teal-700 font-bold group/link">
+                            {{ __('header.see_more') }}
+                            <i class="fas fa-arrow-right ml-2 text-xs transition-transform group-hover/link:translate-x-1"></i>
+                        </a>
+                    </div>
+                </div>
+                @endforeach
+            </div>
+
+            <div class="text-center mt-16" data-aos="fade-up">
+                <a href="{{ route('projects.index') }}" class="inline-flex items-center text-teal-800 font-bold hover:gap-3 transition-all duration-300">
+                    {{ __('messages.view_all_projects') ?? 'Ver todos los proyectos' }}
+                    <i class="fas fa-arrow-right ml-2"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+    @endif
+
+    {{-- 6. Final CTA --}}
     <section class="py-12 bg-teal-900 text-white relative overflow-hidden">
         <div class="absolute top-0 right-0 w-96 h-96 bg-white/5 rounded-full -mr-32 -mt-32"></div>
         <div class="container mx-auto px-4 relative z-10 text-center" data-aos="zoom-in">
