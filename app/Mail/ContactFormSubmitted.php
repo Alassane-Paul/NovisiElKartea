@@ -5,8 +5,6 @@ namespace App\Mail;
 use App\Models\ContactSubmission;
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
-use Illuminate\Mail\Mailables\Content;
-use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
 
 class ContactFormSubmitted extends Mailable
@@ -25,35 +23,15 @@ class ContactFormSubmitted extends Mailable
     }
 
     /**
-     * Get the message envelope.
+     * Build the message.
      */
-    public function envelope(): Envelope
+    public function build()
     {
         $typeLabel = \App\Models\ContactSubmission::TYPES[$this->submission->type] ?? __('emails.form_type', [], 'es');
-        $subject = $this->submission->subject ?? __('emails.no_subject', [], 'es');
+        $subjectText = $this->submission->subject ?? __('emails.no_subject', [], 'es');
+        $fullSubject = __('emails.email_subject_prefix', [], 'es') . " ($typeLabel) : " . $subjectText;
 
-        return new Envelope(
-            subject: __('emails.email_subject_prefix', [], 'es') . " ($typeLabel) : " . $subject,
-        );
-    }
-
-    /**
-     * Get the message content definition.
-     */
-    public function content(): Content
-    {
-        return new Content(
-            view: 'emails.contact-form-premium',
-        );
-    }
-
-    /**
-     * Get the attachments for the message.
-     *
-     * @return array<int, \Illuminate\Mail\Mailables\Attachment>
-     */
-    public function attachments(): array
-    {
-        return [];
+        return $this->subject($fullSubject)
+            ->view('emails.contact-form-premium');
     }
 }

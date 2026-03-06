@@ -145,6 +145,7 @@
                             <h1>Novisi El Kartea</h1>
                         </div>
                         <div class="content">
+                            <!-- DIAGNOSTIC VERSION 2.0 - HTML FORCE -->
                             <p class="intro-text">
                                 {{ __('emails.greeting') }}<br><br>
                                 {{ __('emails.intro') }}
