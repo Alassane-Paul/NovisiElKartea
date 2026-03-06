@@ -55,7 +55,7 @@
                 <div class="flex space-x-4 text-gray-500">
                     @foreach(['facebook', 'twitter', 'instagram', 'linkedin', 'youtube', 'tiktok', 'pinterest', 'whatsapp', 'telegram', 'snapchat'] as $key)
                     @if(($settings["social_{$key}_active"] ?? false) && ($settings["social_{$key}_url"] ?? '#') !== '#')
-                    <a href="{{ $settings['social_{$key}_url'] }}" target="_blank" rel="noopener noreferrer" class="hover:text-[#009688] transition-colors">
+                    <a href="{{ $settings["social_{$key}_url"] }}" target="_blank" rel="noopener noreferrer" class="hover:text-[#009688] transition-colors">
                         <i class="fab fa-{{ $key === 'twitter' ? 'x-twitter' : ($key === 'linkedin' ? 'linkedin-in' : $key) }}"></i>
                     </a>
                     @endif
